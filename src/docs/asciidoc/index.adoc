@@ -1,0 +1,84 @@
+= Baegoon Rest Api Documentation Demo
+baegoon;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+:operation-curl-request-title: Example request
+:operation-http-response-title: Example response
+:snippets: ../../../build/generated-snippets
+
+
+= Team List
+
+== Request
+
+=== curl
+
+include::{snippets}/teams/list/curl-request.adoc[]
+
+=== httpie
+
+include::{snippets}/teams/list/httpie-request.adoc[]
+
+=== sample
+
+include::{snippets}/teams/list/http-request.adoc[]
+
+
+== Response
+
+=== sample
+
+include::{snippets}/teams/list/http-response.adoc[]
+
+=== body
+
+include::{snippets}/teams/list/response-body.adoc[]
+
+=== fields
+
+include::{snippets}/teams/list/response-fields.adoc[]
+
+
+
+= Team Create
+
+== Request
+
+=== curl
+
+include::{snippets}/teams/create/curl-request.adoc[]
+
+=== httpie
+
+include::{snippets}/teams/create/httpie-request.adoc[]
+
+=== sample
+
+include::{snippets}/teams/create/http-request.adoc[]
+
+=== body
+
+include::{snippets}/teams/create/request-body.adoc[]
+
+=== fields
+
+include::{snippets}/teams/create/request-fields.adoc[]
+
+
+== Response
+
+=== sample
+
+include::{snippets}/teams/create/http-response.adoc[]
+
+=== body
+
+include::{snippets}/teams/create/response-body.adoc[]
+
+=== fields
+
+include::{snippets}/teams/create/response-fields.adoc[]
