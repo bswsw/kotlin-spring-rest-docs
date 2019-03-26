@@ -89,37 +89,58 @@ fun create_OK() {
 이에 조금 더 추가하여 문서조각을 생성하는 코드를 작성합니다.
 
 ```kotlin
-// then
-result
-    .andExpect(status().isCreated)
-    .andExpect(jsonPath("name").value(body.getValue("name")))
-    .andExpect(jsonPath("maker").value(body.getValue("maker")))
-    .andExpect(jsonPath("year").value(body.getValue("year")))
-    .andDo(print())
-    .andDo(
-        document(
-            // 문서조각이 생성되는 디렉토리 지정 (build/generated-snippets 아래에 생성됩니다)
-            "$END_POINT/create",
-            // 요청 바디 문서화
-            requestFields(
-                fieldWithPath("name").description("팀명"),
-                fieldWithPath("maker").description("브랜드"),
-                fieldWithPath("year").description("연식")
-            ),
-            // 응답 바디 문서화
-            responseFields(
-                fieldWithPath("id").description("키"),
-                fieldWithPath("name").description("팀명"),
-                fieldWithPath("maker").description("브랜드"),
-                fieldWithPath("year").description("연식"),
-                fieldWithPath("state").description("상태"),
-                fieldWithPath("createdAt").description("생성일시"),
-                fieldWithPath("updatedAt").description("수정일시"),
-                fieldWithPath("_links.self.href").description("조회링크"),
-                fieldWithPath("_links.list.href").description("목록링크")
+@Test
+fun create_OK() {
+    // given
+    val body = mapOf(
+        "name" to "그래들",
+        "maker" to "나이키",
+        "year" to 2000
+    )
+
+    // when
+    val result = this.mockMvc.perform(
+        post("/$END_POINT")
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .accept(MediaTypes.HAL_JSON_UTF8)
+            .content(this.objectMapper.writeValueAsBytes(body))
+    )
+
+    // then
+    result
+        // 데이터 검증
+        .andExpect(status().isCreated)
+        .andExpect(jsonPath("name").value(body.getValue("name")))
+        .andExpect(jsonPath("maker").value(body.getValue("maker")))
+        .andExpect(jsonPath("year").value(body.getValue("year")))
+        // 테스트 결과 print (실패시에는 자동으로 찍히지만 성공시에는 자동으로 찍히지 않음)
+        .andDo(print())
+        // 문서화 추가!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        .andDo(
+            document(
+                // 문서조각이 생성되는 디렉토리 지정 (build/generated-snippets 아래에 생성됩니다)
+                "$END_POINT/create",
+                // 요청 바디 문서화
+                requestFields(
+                    fieldWithPath("name").description("팀명"),
+                    fieldWithPath("maker").description("브랜드"),
+                    fieldWithPath("year").description("연식")
+                ),
+                // 응답 바디 문서화
+                responseFields(
+                    fieldWithPath("id").description("키"),
+                    fieldWithPath("name").description("팀명"),
+                    fieldWithPath("maker").description("브랜드"),
+                    fieldWithPath("year").description("연식"),
+                    fieldWithPath("state").description("상태"),
+                    fieldWithPath("createdAt").description("생성일시"),
+                    fieldWithPath("updatedAt").description("수정일시"),
+                    fieldWithPath("_links.self.href").description("조회링크"),
+                    fieldWithPath("_links.list.href").description("목록링크")
+                )
             )
         )
-    )
+}
 ```
 
 ### 3.4. Spring Rest Docs 자바 설정 추가 (Optional)
