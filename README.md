@@ -189,7 +189,7 @@ include::{snippets}/teams/list/curl-request.adoc[]
 - Plugin DSL
 ```groovy
 plugins {
-    id 'org.asciidoctor.convert' version '1.5.3'
+    id 'org.asciidoctor.convert' version '1.5.9.2'
     ...
 }
 ```
